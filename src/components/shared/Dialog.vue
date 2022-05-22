@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="450px">
+  <v-dialog :value="$store.state.settings.dialog" max-width="510px">
     <v-card>
       <v-card-title class="title grey--text text--darken-1">{{message}}</v-card-title>
       <v-card-actions>
@@ -25,13 +25,6 @@ export default {
   data() {
     return {}
   },
-  computed:{
-    dialog:{
-      get() {
-        return this.$store.state.settings.dialog;
-      },
-    }
-  }
 }
 </script>
 

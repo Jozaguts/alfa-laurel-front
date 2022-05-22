@@ -7,12 +7,18 @@
             <v-card-title><h2 class="text-h3">Alfa Laurel</h2> </v-card-title>
             <v-card-subtitle>  <p class="text-body-1">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro, sit?</p></v-card-subtitle>
             <v-card-text>
-              <v-form ref="form">
+              <validation-observer ref="exam" v-slot="{ handleSubmit }">
+              <v-form ref="form" @submit.prevent="handleSubmit(onSubmit)">
                 <v-container>
                   <v-row>
                     <v-col cols="6">
+                      <validation-provider
+                          v-slot="{ errors }"
+                          name="Nombre del alumno"
+                          :rules="{required: true}"
+                      >
                       <v-text-field
-                          :rules="[rules.required]"
+                          :error-messages="errors"
                           filled
                           outlined
                           v-model="examRequest.student_name"
@@ -20,70 +26,106 @@
                       >
 
                       </v-text-field>
+                      </validation-provider>
                     </v-col>
                     <v-col cols="6">
+                      <validation-provider
+                          v-slot="{ errors }"
+                          name="Código del alumno"
+                          :rules="{required: true}"
+                      >
                       <v-text-field
-                          :rules="[rules.required]"
-                          label="Código Alumno"
-                          maxlength="6"
+                          :error-messages="errors"
+                          label="Código del alumno"
+                          maxlength="10"
                           filled
                           outlined
                           v-model="examRequest.student_code"
                       >
-
                       </v-text-field>
+                      </validation-provider>
                     </v-col>
                   </v-row>
                   <v-row>
                     <v-col cols="6">
+                      <validation-provider
+                          v-slot="{ errors }"
+                          name="Profesor"
+                          :rules="{required: true}"
+                      >
                       <v-autocomplete
                           :items="users"
+                          :error-messages="errors"
                           v-model="examRequest.user_id"
                           clearable
                           outlined
                           filled
-                          label="Selecciona un profesor"
-                          no-data-text="No existe un profesor con ese nombre"
+                          label="Profesor"
+                          placeholder="Seleccione a un profesor"
+                          no-data-text="La lista de profesores no esta disponible"
                       ></v-autocomplete>
+                      </validation-provider>
                     </v-col>
                     <v-col cols="6">
-                      <v-autocomplete
-                          clearable
-                          filled
-                          outlined
-                          :items="subjects"
-                          v-model="examRequest.subject_id"
-                          :disabled="!examRequest.user_id"
-                          @input="getExams"
-                          label="Selecciona una materia"
-                      ></v-autocomplete>
+                      <validation-provider
+                          v-slot="{errors}"
+                          name="Materia"
+                          rules="required"
+                      >
+                        <v-autocomplete
+                            clearable
+                            :error-messages="errors"
+                            filled
+                            outlined
+                            :items="subjects"
+                            v-model="examRequest.subject_id"
+                            :disabled="!examRequest.user_id"
+                            @input="getExams"
+                            placeholder="Selecciona una materia"
+                            label="Materia"
+                        ></v-autocomplete>
+                      </validation-provider>
                     </v-col>
                   </v-row>
                   <v-row>
                     <v-col cols="6">
+                      <validation-provider
+                          v-slot="{ errors }"
+                          name="Examen"
+                          rules="required"
+                      >
                       <v-autocomplete
                           clearable
+                          :error-messages="errors"
                           filled
                           outlined
-                          :rules="[rules.required]"
                           v-model="examRequest.exam_id"
                           :loading="exams.loading"
                           :items="exams.values"
                           :disabled="exams.values.length <= 0"
-                          label="Selecciona un examen"
+                          laber="Examen"
+                          placeholder="Selecciona un examen"
                       ></v-autocomplete>
+                      </validation-provider>
                     </v-col>
                     <v-col cols="6">
+                      <validation-provider
+                          v-slot="{ errors }"
+                          rules="required"
+                          name="Código del examen"
+                      >
                       <v-text-field
-                      label="Ingresa el código del examen"
-                      v-model="teacher_code"
-                      :success="disabledButton"
-                      maxlength="4"
-                      filled
-                      outlined
-                      counter="4"
-                      :rules="[validateCode, rules.required]">
+                          label="Código del examen"
+                          placeholder="Ingrese el código del examen"
+                          v-model="teacher_code"
+                          maxlength="10"
+                          trim
+                          filled
+                          outlined
+                          :error-messages="errors"
+                      >
                       </v-text-field>
+                      </validation-provider>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -93,15 +135,16 @@
                           outlined
                           color="primary"
                           x-large
-                          @click="submit"
+                          :loading="loading"
+                          @click="onSubmit"
                       >
                         Aceptar
                       </v-btn>
                     </v-col>
                   </v-row>
-
                 </v-container>
               </v-form>
+              </validation-observer>
             </v-card-text>
           </v-card>
             <v-sheet v-else>
@@ -110,12 +153,13 @@
                   <v-row>
                     <v-col>
                      <v-card outlined>
-                       <v-card-title>
+                       <v-card-title class="grey lighten-2">
                          <section class="grid-container">
                            <p class="grid-item-1 text-subtitle-2 font-weight-medium text-capitalize">Materia: {{ subjectSelected[0].text }}</p>
                            <p class="grid-item-2 text-subtitle-2 font-weight-medium text-capitalize">Examen: {{examenSelected[0].text}}</p>
                            <p class="grid-item-3 text-subtitle-2 font-weight-medium text-capitalize">nombre del alumno: {{examRequest.student_name}} </p>
-                           <p class="grid-item-4 text-subtitle-1 font-weight-medium text-capitalize">Tiempo restante: {{examRequest.minutes_assigns}} </p>
+                           <p class="grid-item-4 text-subtitle-1 font-weight-medium text-capitalize">Tiempo: {{examRequest.minutes_assigns}} </p>
+                           <p class="grid-item-5 text-subtitle-1 font-weight-medium text-capitalize" :class="timerStyle">Tiempo restante: {{ timer }} </p>
                          </section>
                        </v-card-title>
                        <v-card-text>
@@ -150,8 +194,8 @@
                        </v-card-text>
                        <v-card-actions>
                          <v-btn
-                             outlined
-                             color="secondary"
+                             x-large
+                             color="primary"
                              block
                              @click="$store.commit('settings/TOGGLE_DIALOG',true)"
                          >
@@ -167,10 +211,11 @@
           </transition>
         </v-col>
         <dialog-component
-            :message="'¿Terminar Examen?'"
+            :message="dialogMessage"
             :loading="loading"
             @store="store"
         ></dialog-component>
+
       </v-row>
     </v-container>
 </template>
@@ -182,15 +227,12 @@ export default {
   },
   data() {
     return {
+      timer: 60,
       dialog: false,
       loading: false,
       questions:[],
       answers:[],
       showCard:1,
-      rules: {
-        required: value => !!value || 'campo requerido.',
-      },
-      disabledButton: false,
       teacher_code: null,
       questionRequest:[],
       examRequest:{
@@ -237,7 +279,7 @@ export default {
         values.map((value,index) => {
           let [number_answer] = value.options.filter(option => option.option === value.answer) //numero de la opción 1|2|3
           this.questionRequest[index].question_id = value.options[0].question_id;
-          this.questionRequest[index].number = value.question_number; // en numero de la pregunta en el examen
+          this.questionRequest[index].number = index+1; // en numero de la pregunta en el examen
           this.questionRequest[index].question = value.question; // en numero de la pregunta en el examen
           this.questionRequest[index].option1 = value.options[0].option;
           this.questionRequest[index].option2 = value.options[1].option;
@@ -251,7 +293,7 @@ export default {
       }
     }
   },
-  created(){
+  async created(){
     axios.get('/api/init-exam')
         .then(( { data }) => {
            this.users = data.users.map((user) => {
@@ -261,8 +303,27 @@ export default {
             return {value: subject.id, text:subject.name}
           })
          })
+
   },
   computed:{
+    dialogMessage(){
+      let message = '¿Terminar Examen?'
+      if(this.questionRequest.some(answer => answer.answer == null)){
+        message = 'No haz terminado responder todas las preguntas ¿Deseas terminar el examen?'
+      }
+      return message
+    },
+    timerStyle(){
+      let style = 'green--text'
+      if (this.timer >= 31) {
+        style = 'green--text'
+      }else if(this.timer <= 30 && this.timer < 5){
+        style = 'yellow--text'
+      }else if(this.timer <= 5){
+        style = 'red--text'
+      }
+      return style
+    },
     subjectSelected() {
         return this.subjects.filter((subject) => subject.value === this.examRequest.subject_id)
     },
@@ -271,25 +332,40 @@ export default {
     },
   },
   methods:{
-    validateCode() {
-       let [examSelected] = this.exams.values.filter((exam) => (exam.value === this.examRequest.exam_id))
-      this.disabledButton = examSelected?.code === this.teacher_code
-       return  examSelected?.code === this.teacher_code || 'Código invalido'
+    initTimer(){
+      setInterval(()=>{
+        if(this.timer){
+          this.timer = this.timer -1
+        }
+      },60000)
     },
-    submit(){
-      if (this.$refs.form.validate()){
-        this.showCard = !this.$refs.form.validate()
-        this.getExam()
-      }
-
+    onSubmit(){
+      this.loading = true;
+      this.$refs.exam.validate().then(async (success) => {
+            if (!success) {
+              return;
+            }
+            if(!this.validateCode()){
+              this.$refs.exam.setErrors({
+                "Código del examen": ['El código del examen es incorrecto']
+              });
+            }else{
+                await this.getExam()
+                this.showCard = !success
+                this.initTimer()
+            }
+      }).then(() => {this.loading = false;})
+    },
+    validateCode(){
+      let [examSelected] = this.exams.values.filter((exam) => (exam.value === this.examRequest.exam_id))
+      return  examSelected?.code === this.teacher_code
     },
     async store() {
       try {
         this.loading = true;
         let respuestas = this.examRequest
         respuestas.answers_details = this.questionRequest;
-        let {data} =  await axios.post('/api/respuestas', respuestas)
-        console.log(data)
+        await axios.post('/api/respuestas', respuestas)
       }catch(e) {
         console.error(e.message)
       }finally {
@@ -299,7 +375,7 @@ export default {
           text: "Su Examen ha sido guardado correctamente",
           color: "success"
         }, { root: true });
-        setTimeout(()=> window.location.reload(),3000)
+        // setTimeout(()=> window.location.reload(),3000)
 
       }
     },
@@ -403,7 +479,7 @@ export default {
   gap: 15px 20px;
   grid-template-areas:
     "grid-item-1 grid-item-4"
-    "grid-item-2 grid-item-4"
+    "grid-item-2 grid-item-5"
     "grid-item-3 .";
   width: 100%;
   height: 100%;
@@ -412,5 +488,6 @@ export default {
 .grid-item-3 { grid-area: grid-item-3; }
 .grid-item-1 { grid-area: grid-item-1; }
 .grid-item-4 { grid-area: grid-item-4; }
+.grid-item-5 { grid-area: grid-item-5; }
 </style>
 
