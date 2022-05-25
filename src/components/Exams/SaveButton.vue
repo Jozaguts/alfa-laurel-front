@@ -65,12 +65,6 @@ export default {
             color: "success"
           }, { root: true });
         }
-
-      } catch (e) {
-        this.$store.commit("settings/SHOW_SNACKBAR", {
-          text: "Error al procesar el examen",
-        }, { root: true });
-      } finally {
         if (this.$store.state.examen.dialog) { //es crear
           this.$store.commit("examen/CLOSE_CREATE_DIALOG") //cierro le modal
         } else if (this.$store.state.examen.dialogUpdate){ // esto es actulizar
@@ -80,6 +74,11 @@ export default {
         this.$store.commit("examen/SET_STEP",1)
         this.statusButton = false;
         this.$emit('saved')
+      } catch (e) {
+        if(this.statusButton) this.statusButton = false;
+        this.$store.commit("settings/SHOW_SNACKBAR", {
+          text: e.response.data ?? "Error al procesar el examen",
+        }, { root: true });
       }
     },
   },
