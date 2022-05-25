@@ -375,7 +375,7 @@ export default {
           text: "Su Examen ha sido guardado correctamente",
           color: "success"
         }, { root: true });
-        // setTimeout(()=> window.location.reload(),3000)
+        setTimeout(()=> window.location.reload(),3000)
 
       }
     },
