@@ -23,7 +23,7 @@
           <v-divider class="mx-4" vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog
-              @input="$store.commit('examen/CLOSE_CREATE_DIALOG')"
+              @input="closeDialog"
             :value="$store.state.examen.dialog"
             fullscreen
           >
@@ -188,6 +188,16 @@ export default {
     this.init()
   },
   methods: {
+    closeDialog() {
+      this.$store.commit("examen/CLOSE_CREATE_DIALOG");
+      this.$store.commit("examen/RESET_FORM");
+      this.$store.commit("examen/SET_STEP",1);
+      if ( this.$refs.createExam.$refs?.['store-exam-form']){
+        this.$refs.createExam.$refs?.['store-exam-form'].reset()
+      }else if(this.$refs.createExam.$refs?.['store-file-exam-form']){
+        this.$refs.createExam.$refs?.['store-file-exam-form'].reset()
+      }
+    },
     // TODO tratar de mover esto
     // SIRVE PARA QUE CUANDO DEN "ESCAPE" se se haga un reset de todo
     resetUpdateForm(){
