@@ -74,7 +74,7 @@ export default {
   },
   data() {
     return {
-      levels: ["A", "B", "M"],
+      levels: [{value: "A", text: "Alto"},{value: "M", text: "Medio"},{value: "B", text: "Bajo"},],
       answers: [1, 2, 3],
       // question: {
       //   id: 1,
