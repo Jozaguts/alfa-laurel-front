@@ -120,15 +120,28 @@
           ></v-text-field>
           </validation-provider>
         </v-col>
-        <v-col cols="12">
+      </v-row>
+      <v-row>
+        <v-col cols="6">
           <v-btn
-            :loading="loading"
-            block
-            large
-            :disabled="invalid"
-            color="secondary"
-            @click="save"
-            >Cargar examen</v-btn
+              outlined
+              block
+              large
+              color="secondary"
+              @click="$emit('close-dialog')"
+          >Cancelar</v-btn
+          >
+        </v-col>
+        <v-col cols="6">
+
+          <v-btn
+              :loading="loading"
+              block
+              large
+              :disabled="invalid"
+              color="secondary"
+              @click="save"
+          >Cargar examen</v-btn
           >
         </v-col>
       </v-row>

@@ -23,7 +23,7 @@
           <v-divider class="mx-4" vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog
-              @input="closeDialog"
+              persistent
             :value="$store.state.examen.dialog"
             fullscreen
           >
@@ -112,6 +112,7 @@
                           :users="users"
                           :subjects="subjects"
                           @saved="init"
+                          @close-dialog="closeDialog"
                           ref="createExam"
                         >
                         </component>
