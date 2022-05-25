@@ -123,7 +123,7 @@
           >
         </v-col>
         <v-col class="d-flex justify-end">
-          <CancelButton @reset-form="$refs.form.reset()"/>
+          <CancelButton @reset-form="$refs['store-exam-form'].reset()"/>
 <!--          todo refactor saved-->
           <SaveButton :invalid="invalid" @saved="saved"/>
         </v-col>
