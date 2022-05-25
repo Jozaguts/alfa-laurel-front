@@ -54,6 +54,11 @@ const routes = [
     name: "Exams",
     component: () => import("../components/Exams/Index.vue"),
   },
+  {
+    path: "/examenes-aplicados",
+    name: "ExamsApplied",
+    component: () => import("../views/ExamenesAplicados.vue"),
+  },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 
