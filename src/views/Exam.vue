@@ -60,6 +60,7 @@
                           clearable
                           outlined
                           filled
+                          @change="resetValues"
                           label="Profesor"
                           placeholder="Seleccione a un profesor"
                           no-data-text="La lista de profesores no esta disponible"
@@ -102,7 +103,7 @@
                           v-model="examRequest.exam_id"
                           :loading="exams.loading"
                           :items="exams.values"
-                          :disabled="exams.values.length <= 0"
+                          no-data-text="No existen examenes para el profesor y materia seleccionada"
                           laber="Examen"
                           placeholder="Selecciona un examen"
                       ></v-autocomplete>
@@ -215,7 +216,8 @@
             :loading="loading"
             @store="store"
         ></dialog-component>
-v-container>
+        </v-row>
+      </v-container>
 </template>
 <script>
 import axios from "axios";
@@ -330,6 +332,12 @@ export default {
     },
   },
   methods:{
+    resetValues() {
+      if(this.examRequest.subject_id) {
+        this.examRequest.subject_id = null;
+        this.examRequest.exam_id = null;
+      }
+    },
     initTimer(){
       setInterval(()=>{
         if(this.timer){
