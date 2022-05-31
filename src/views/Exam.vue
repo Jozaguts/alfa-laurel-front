@@ -215,9 +215,7 @@
             :loading="loading"
             @store="store"
         ></dialog-component>
-
-      </v-row>
-    </v-container>
+v-container>
 </template>
 <script>
 import axios from "axios";
