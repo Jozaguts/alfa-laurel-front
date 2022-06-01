@@ -27,6 +27,21 @@
             :value="$store.state.examen.dialog"
             fullscreen
           >
+            <v-toolbar
+              flat
+              dark
+              color="primary"
+            >
+              <template #default>
+                <v-btn
+                  icon
+                  dark
+                  @click="$store.commit('examen/CLOSE_CREATE_DIALOG')"
+                >
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </template>
+            </v-toolbar>
             <template v-slot:activator="{ attrs }">
               <v-btn color="primary" dark class="mb-2" v-bind="attrs" @click="$store.commit('examen/OPEN_CREATE_DIALOG')">
                 + Añadir Examen
