@@ -14,6 +14,7 @@ export default {
     links: [
       { text: "Materias", icon: "mdi-bookshelf", to: "/materias" },
       { text: "Exámenes", icon: "mdi-file-multiple-outline", to: "/examenes" },
+      { text: "Exámenes aplicados", icon: "mdi-text-box-multiple-outline", to: "/examenes-aplicados" },
     ],
   },
   mutations: {
