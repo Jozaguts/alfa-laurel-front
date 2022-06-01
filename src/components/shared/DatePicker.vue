@@ -72,7 +72,7 @@ export default {
     if (this.label === 'Desde'){
       this.date = `${toDay.getFullYear()}-${toDay.getMonth()+1}-1`
     }else if (this.label === "Hasta") {
-      this.date =`${toDay.getFullYear()}-${toDay.getMonth()}-${toDay.getDate()}`
+      this.date =`${toDay.getFullYear()}-${toDay.getMonth()+1}-${toDay.getDate()}`
     }
     // this.from = `${from.getDate()}/${from.getMonth()}/${from.getFullYear()}`
   }
