@@ -25,3 +25,6 @@ export async function destroy({ userId }) {
 export async function get({ userId }) {
   return await axios.get(`/api/users/${userId}`);
 }
+export async function getTeachers() {
+  return await axios.get(`/api/users?role=teachers`);
+}
