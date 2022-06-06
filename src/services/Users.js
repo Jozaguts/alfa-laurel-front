@@ -19,3 +19,9 @@ export class Users {
 export async function all () {
     return await axios.get("/api/users");
 }
+export async function destroy({ userId }) {
+  return await axios.delete(`/api/users/${userId}`);
+}
+export async function get({ userId }) {
+  return await axios.get(`/api/users/${userId}`);
+}
