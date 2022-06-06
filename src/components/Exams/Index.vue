@@ -1,14 +1,12 @@
 <template>
-  <v-card>
-    <v-card-title>
-      <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Buscar"
-        single-line
-        hide-details
-      ></v-text-field>
-    </v-card-title>
+  <v-sheet>
+    <v-text-field
+      v-model="search"
+      append-icon="mdi-magnify"
+      label="Buscar"
+      single-line
+      hide-details
+    ></v-text-field>
     <v-data-table
       :headers="headers"
       :items="desserts"
@@ -160,7 +158,7 @@
         <DeleteButton :id="item.id" @submitted="init"/>
       </template>
     </v-data-table>
-  </v-card>
+  </v-sheet>
 </template>
 
 <script>
