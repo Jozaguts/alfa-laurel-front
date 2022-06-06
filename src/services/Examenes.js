@@ -1,7 +1,6 @@
 import axios from "axios";
-import { Users } from "@/services/Users";
+import { getTeachers } from "@/services/Users";
 import { Subjects } from "@/services/Subjects";
-const UserService = new Users();
 const SubjectsService = new Subjects();
 
 export class Examenes {
@@ -51,14 +50,14 @@ export async function store(data) {
 }
 export async function initExamenes() {
   let { data: examenes } = await all();
-  let { data: users } = await UserService.all();
+  let { data: users } = await getTeachers()
   let { data: subjects } = await SubjectsService.all();
   return {
     subjects: subjects.map((item) => {
       return { value: item.id, text: item.name };
     }),
     users: users.map((item) => {
-      return { value: item.id, text: item.name };
+      return { value: item.id, text: item.name,roles: item.roles };
     }),
     examenes,
   };
@@ -66,10 +65,10 @@ export async function initExamenes() {
 export async function destroy({ examenId }) {
   return await axios.delete(`/api/examenes/${examenId}`);
 }
-export async function deleteExamQuestion({examenID,questionID}) {
-  return await axios.post(`/api/examenes/question`,{examenID, questionID});
+export async function deleteExamQuestion({ examenID, questionID }) {
+  return await axios.post(`/api/examenes/question`, { examenID, questionID });
 }
-export async function update({examen_id, ...data}) {
+export async function update({ examen_id, ...data }) {
   return await axios.post(`/api/examenes/${examen_id}`, {
     examen_id,
     name: data.name,
@@ -79,6 +78,6 @@ export async function update({examen_id, ...data}) {
     medium: data.medium,
     high: data.high,
     questions: data.questions,
-    _method: 'PUT'
+    _method: "PUT",
   });
 }
