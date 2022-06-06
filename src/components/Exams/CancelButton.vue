@@ -5,7 +5,7 @@
       tile
       :loading="statusButton"
       @click="cancel"
-  >Cancelar</v-btn
+  >Regresar</v-btn
   >
 </template>
 
