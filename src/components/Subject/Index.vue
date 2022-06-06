@@ -171,14 +171,22 @@ export default {
         this.isBtbBlocked = true;
         await SubjectsService.store(this.editedItem);
         await this.init();
-        this.$store.commit("settings/SHOW_SNACKBAR", {
-          text: "¡Materia agregada correctamente!",
-          color: this.$vuetify.theme.themes.light.secondary
-        },{ root: true });
+        this.$store.commit(
+          "settings/SHOW_SNACKBAR",
+          {
+            text: "¡Materia agregada correctamente!",
+            color: this.$vuetify.theme.themes.light.secondary,
+          },
+          { root: true }
+        );
       } catch (e) {
-        this.$store.commit("settings/SHOW_SNACKBAR", {
-          text: "¡No fue posible agregar la materia!",
-        },{ root: true });
+        this.$store.commit(
+          "settings/SHOW_SNACKBAR",
+          {
+            text: "¡No fue posible agregar la materia!",
+          },
+          { root: true }
+        );
       } finally {
         this.dialog = false;
         this.isBtbBlocked = false;
@@ -193,15 +201,23 @@ export default {
             subjectId: this.idSelected,
           });
           await this.init();
-          this.$store.commit("settings/SHOW_SNACKBAR", {
-            text: "¡Materia eliminada correctamente!",
-            color: this.$vuetify.theme.themes.light.secondary
-          },{ root: true });
+          this.$store.commit(
+            "settings/SHOW_SNACKBAR",
+            {
+              text: "¡Materia eliminada correctamente!",
+              color: this.$vuetify.theme.themes.light.secondary,
+            },
+            { root: true }
+          );
         } catch (e) {
-          this.$store.commit("settings/SHOW_SNACKBAR", {
-            text: "¡No fue posible eliminar la materia!",
-          },{ root: true });
-        }finally {
+          this.$store.commit(
+            "settings/SHOW_SNACKBAR",
+            {
+              text: e.response.data.message ?? "¡No fue posible eliminar la materia!",
+            },
+            { root: true }
+          );
+        } finally {
           this.dialogDelete = false;
           this.isBtbBlocked = false;
         }
