@@ -5,13 +5,13 @@
    <div class="buttons-container">
     <div class="d-flex flex-column flex-md-row flex-lg-row justify-lg-space-around justify-md-space-around">
       <v-btn
-        dark
+        color="secondary"
         to="/login"
       >
         Iniciar Sesion
       </v-btn>
       <v-btn
-        dark
+        color="secondary"
         to="/examen"
       >
         Examen
@@ -25,7 +25,7 @@
 .buttons-container{
   position: absolute;
   width: 100vw;
-  bottom: 1rem;
+  bottom: 11rem;
   left: 0;
 }
   .bg-alfa {
