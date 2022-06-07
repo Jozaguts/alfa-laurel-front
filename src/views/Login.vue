@@ -57,9 +57,13 @@ export default {
         this.$store.commit("settings/TOGGLE_LOADING", true);
         await this.$store.dispatch("auth/token_login", this.credentials);
       } catch (e) {
-        this.$store.commit("settings/SHOW_SNACKBAR", {
-          text: "Error al procesar la solicitud",
-        }, { root: true });
+        this.$store.commit(
+          "settings/SHOW_SNACKBAR",
+          {
+            text: "Error al procesar la solicitud",
+          },
+          { root: true }
+        );
       } finally {
         this.$store.commit("settings/TOGGLE_LOADING", false);
       }
