@@ -5,7 +5,7 @@ export default {
     dialogUpdate: false,
     e1: 1,
     resetForm: false,
-    extraQuestions:[],
+    extraQuestions: [],
     editedItem: {
       examen_id: null,
       name: null,
@@ -14,7 +14,7 @@ export default {
       subject_id: null,
       low: null,
       medium: null,
-      high:null,
+      high: null,
       questions: [
         {
           id: 1,
@@ -43,8 +43,8 @@ export default {
               id: 3,
               option: null,
               is_answer: null,
-              cols: "10",
-              md: "2",
+              cols: "12",
+              md: "4",
               number: 3,
             },
           ],
@@ -62,7 +62,7 @@ export default {
     SET_HIGH(state, value) {
       state.editedItem.high = value;
     },
-    UPDATE_FILE(state,file) {
+    UPDATE_FILE(state, file) {
       state.editedItem.file = file;
     },
     SET_STEP(state, step) {
@@ -81,7 +81,8 @@ export default {
       state.dialogUpdate = true;
     },
     ADD_QUESTION(state) {
-      let lastOne = state.editedItem.questions[state.editedItem.questions.length -1]
+      let lastOne =
+        state.editedItem.questions[state.editedItem.questions.length - 1];
       state.editedItem.questions.push({
         id: null,
         question: null,
@@ -112,8 +113,8 @@ export default {
             option: null,
             is_answer: null,
             question_id: null,
-            cols: "10",
-            md: "3",
+            cols: "12",
+            md: "4",
             number: 3,
           },
         ],
@@ -132,8 +133,8 @@ export default {
       state.editedItem.subject_id = subject_id;
     },
     REMOVE_QUESTION(state, questionID) {
-      let idx = state.editedItem.questions.findIndex((q) =>  q.id == questionID);
-      state.editedItem.questions.splice(idx,1);
+      let idx = state.editedItem.questions.findIndex((q) => q.id == questionID);
+      state.editedItem.questions.splice(idx, 1);
       if (state.editedItem.questions.length === 0) {
         state.editedItem.questions.push({
           id: 1,
@@ -162,8 +163,8 @@ export default {
               id: 3,
               option: null,
               is_answer: null,
-              cols: "10",
-              md: "3",
+              cols: "12",
+              md: "4",
               number: 3,
             },
           ],
@@ -184,7 +185,7 @@ export default {
         subject_id: null,
         low: null,
         medium: null,
-        high:null,
+        high: null,
         questions: [
           {
             id: 1,
@@ -199,7 +200,7 @@ export default {
                 is_answer: null,
                 cols: "12",
                 md: "4",
-                number:1,
+                number: 1,
               },
               {
                 id: 2,
@@ -207,15 +208,15 @@ export default {
                 is_answer: null,
                 cols: "12",
                 md: "4",
-                number:2,
+                number: 2,
               },
               {
                 id: 3,
                 option: null,
                 is_answer: null,
-                cols: "10",
-                md: "3",
-                number:3,
+                cols: "12",
+                md: "4",
+                number: 3,
               },
             ],
           },
@@ -226,9 +227,9 @@ export default {
       state.editedItem.questions = questions;
     },
   },
-  getters:{
-    totalQuestions(state){
-        return state.editedItem.questions.length
-    }
-  }
+  getters: {
+    totalQuestions(state) {
+      return state.editedItem.questions.length;
+    },
+  },
 };
