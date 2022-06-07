@@ -39,6 +39,13 @@ export default {
         commit("SET_TOKEN", data);
         await dispatch("me");
       } catch (e) {
+        commit(
+          "settings/SHOW_SNACKBAR",
+          {
+            text: e.response.data.message ?? "Error al procesar la solicitud",
+          },
+          { root: true }
+        );
         commit("SET_LOGGED", false);
         commit("SET_TOKEN", null);
       }
