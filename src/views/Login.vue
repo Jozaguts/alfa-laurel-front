@@ -1,6 +1,10 @@
 <template>
   <div class="page-wrap">
+
     <v-form @submit.prevent="submit">
+      <div class="text-center">
+        <img src="../assets/logo.png" alt="alfa laurel" width="150"  height="150">
+      </div>
       <h2 class="text-center text-h3 text--primary font-weight-bold py-5">
         {{ appName }}
       </h2>
