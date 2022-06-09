@@ -10,6 +10,10 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+		beforeEnter: (to, from, next) => {
+			if (store.state.auth.logged)next({name:'Admin'});
+			else next();
+		}
   },
   {
     name: "Exam",
