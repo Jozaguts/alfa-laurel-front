@@ -200,9 +200,9 @@
                       <v-card-text>
                         <v-form>
                           <v-container>
-                            <v-row>
-                              <v-col> </v-col>
-                            </v-row>
+<!--                            <v-row>-->
+<!--                              <v-col> </v-col>-->
+<!--                            </v-row>-->
                             <v-row>
                               <v-col
                                 cols="12"
@@ -297,7 +297,6 @@ export default {
       handler(values) {
         if (!this.questionRequest.length) {
           values.map((value, index) => {
-            // console.log(value)
             this.questionRequest.push({
               answer_id: index + 1,
               question_id: null,
@@ -423,12 +422,7 @@ export default {
         this.loading = true;
         let respuestas = this.examRequest;
         respuestas.answers_details = this.questionRequest;
-        await axios.post("/api/respuestas", respuestas);
-      } catch (e) {
-        console.error(e.message);
-      } finally {
-        this.loading = false;
-        this.$store.commit("settings/TOGGLE_DIALOG", false);
+        await axios.post("/api/respuestas", respuestas); // aqui se envia
         this.$store.commit(
           "settings/SHOW_SNACKBAR",
           {
@@ -437,6 +431,14 @@ export default {
           },
           { root: true }
         );
+      } catch (e) {
+        this.$store.commit("settings/SHOW_SNACKBAR", {
+          text: "Error al guardar examen: Tiene que responder al menos una pregunta",
+        }, { root: true });
+        console.error(e.message);
+      } finally {
+        this.loading = false;
+        this.$store.commit("settings/TOGGLE_DIALOG", false);
         setTimeout(() => window.location.reload(), 3000);
       }
     },
