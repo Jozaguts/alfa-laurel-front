@@ -77,7 +77,7 @@ export default {
       } catch (e) {
         if(this.statusButton) this.statusButton = false;
         this.$store.commit("settings/SHOW_SNACKBAR", {
-          text: e.response.data ?? "Error al procesar el examen",
+          text: e.response?.data?.message ?? "Error al procesar el examen",
         }, { root: true });
       }
     },
