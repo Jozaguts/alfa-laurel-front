@@ -73,6 +73,7 @@ const router = new VueRouter({
 });
 const unauthenticatedRoutes = ['Login','Exam','Home'];
 router.beforeEach((to, from, next) => {
+	window.document.title = "Instituto Alfa Laurel"
   if (!unauthenticatedRoutes.includes(to.name) && !store.state.auth.logged) next({ name: "Login" });
   else next();
 });

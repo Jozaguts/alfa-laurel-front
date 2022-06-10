@@ -49,7 +49,7 @@
       <router-link to="/admin">
       <v-toolbar-title to="/" class="order-lg-1 order-md-1 order-sm-2 order-2">
         <h5 class="white--text text-body-1 ml-xs-8">
-          <span>Instituto</span> Alfa Laurel
+            <span>Instituto</span> Alfa Laurel
         </h5>
       </v-toolbar-title>
       </router-link>
