@@ -138,6 +138,7 @@
                             filled
                             outlined
                             :error-messages="errors"
+                            type="password"
                           >
                           </v-text-field>
                         </validation-provider>
