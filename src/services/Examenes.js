@@ -46,7 +46,7 @@ export async function store(data) {
     headers: {
       "Content-Type": data.file ? "multipart/form-data" : "application/json",
     },
-  });
+  })
 }
 export async function initExamenes() {
   let { data: examenes } = await all();

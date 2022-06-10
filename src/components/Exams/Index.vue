@@ -240,15 +240,17 @@ export default {
     },
     async save(data) {
       try {
-
         this.isBtbBlocked = true;
-        await ExamenesService.store(data);
+        console.log(1);
+        let response = await ExamenesService.store(data);
+        console.log(response);
         await initExamenes();
         this.$store.commit("settings/SHOW_SNACKBAR", {
           text: "Examen agregado correctamente",
           color: "success"
         }, { root: true });
       } catch (e) {
+        console.log(e);
         this.$store.commit("settings/SHOW_SNACKBAR", {
           text: "Error al procesar la solicitud",
         }, { root: true });

@@ -1,6 +1,6 @@
 <template>
-  <ValidationObserver v-slot="{ invalid  }" ref="store-file-exam-form">
-    <v-form ref="form"  >
+  <ValidationObserver v-slot="{ invalid }" ref="store-file-exam-form">
+    <v-form ref="form">
       <v-container>
         <v-row>
           <v-col>
@@ -55,10 +55,7 @@
             </validation-provider>
           </v-col>
           <v-col cols="12">
-            <validation-provider
-              v-slot="{ errors }"
-              name="Archivo"
-            >
+            <validation-provider v-slot="{ errors }" name="Archivo">
               <v-file-input
                 show-size
                 :rules="customRules"
@@ -158,9 +155,9 @@ export default {
     return {
       loading: false,
       customRules: [
-        v => !!v || 'File is required',
-        v => (v && v.size > 0) || 'File is required',
-      ]
+        (v) => !!v || "File is required",
+        (v) => (v && v.size > 0) || "File is required",
+      ],
     };
   },
   methods: {
@@ -174,13 +171,20 @@ export default {
         });
         await store(this.$store.state.examen.editedItem);
         this.$emit("saved", { success: true }); // dispara showAlert
-      } catch (e) {
-        this.$emit("saved", { success: false });
-      } finally {
         this.$store.commit("examen/CLOSE_CREATE_DIALOG");
         this.$store.commit("examen/RESET_FORM");
         this.$store.commit("examen/SET_STEP", 1);
         await this.$refs["store-file-exam-form"].reset();
+      } catch (e) {
+        this.$store.commit(
+          "settings/SHOW_SNACKBAR",
+          {
+            text: e.response.data,
+          },
+          { root: true }
+        );
+        // this.$emit("saved", { success: false });
+      } finally {
         this.loading = false;
       }
     },
