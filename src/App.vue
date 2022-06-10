@@ -46,11 +46,13 @@
     </v-navigation-drawer>
 
     <v-app-bar v-if="authenticated" color="primary" clipped-left app>
-      <v-toolbar-title class="order-lg-1 order-md-1 order-sm-2 order-2">
+      <router-link to="/admin">
+      <v-toolbar-title to="/" class="order-lg-1 order-md-1 order-sm-2 order-2">
         <h5 class="white--text text-body-1 ml-xs-8">
           <span>Instituto</span> Alfa Laurel
         </h5>
       </v-toolbar-title>
+      </router-link>
       <div class="order-lg-2 order-md-2 order-sm-1 order-1">
         <v-app-bar-nav-icon
           class="white--text order-1"
