@@ -27,13 +27,6 @@ import { deleteExamQuestion } from "@/services/Examenes";
 
 export default {
   name: "DeleteQuestion",
-  props: {
-    dialog: {
-      type: Boolean,
-      require: true,
-      default: false,
-    },
-  },
   data() {
     return {
       loading: false,
