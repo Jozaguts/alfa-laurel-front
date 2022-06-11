@@ -71,6 +71,7 @@ export default {
     DeleteQuestion: () => import("@/components/Exams/DeleteQuestion.vue"),
   },
   methods: {
+    deleteQuestion() {}, //todo
     optionUpdated(value) {
       this.question.options = value;
     },

@@ -6,15 +6,14 @@
           <v-card outlined v-if="showCard">
             <v-card-title
               ><h2 class="text-h3">Instituto Alfa Laurel</h2>
-             <v-spacer></v-spacer>
+              <v-spacer></v-spacer>
               <span>
                 <img
                   src="../assets/logo.png"
                   alt="insituto alfa laurel logo"
                   width="100"
                   height="100"
-                />
-              </span
+                /> </span
             ></v-card-title>
             <v-card-subtitle>
               <p class="text-body-1">
@@ -201,9 +200,9 @@
                       <v-card-text>
                         <v-form>
                           <v-container>
-<!--                            <v-row>-->
-<!--                              <v-col> </v-col>-->
-<!--                            </v-row>-->
+                            <!--                            <v-row>-->
+                            <!--                              <v-col> </v-col>-->
+                            <!--                            </v-row>-->
                             <v-row>
                               <v-col
                                 cols="12"
@@ -388,7 +387,7 @@ export default {
         if (this.timer) {
           this.timer = this.timer - 1;
         }
-      }, 1000); // todo cambiar a 60000
+      }, 15000); // todo cambiar a 60000
     },
     onSubmit() {
       this.loading = true;
@@ -433,9 +432,13 @@ export default {
           { root: true }
         );
       } catch (e) {
-        this.$store.commit("settings/SHOW_SNACKBAR", {
-          text: "Error al guardar examen: Tiene que responder al menos una pregunta",
-        }, { root: true });
+        this.$store.commit(
+          "settings/SHOW_SNACKBAR",
+          {
+            text: "Error al guardar examen: Tiene que responder al menos una pregunta",
+          },
+          { root: true }
+        );
         console.error(e.message);
       } finally {
         this.loading = false;
@@ -461,6 +464,7 @@ export default {
     async getExam() {
       try {
         let { data } = await axios.get(`/api/exam/${this.examRequest.exam_id}`);
+
         let { low, medium, high } = this.getRandomExam({
           low: data.data.low,
           medium: data.data.medium,
@@ -474,7 +478,7 @@ export default {
           amount,
           questions: low.concat(medium).concat(high),
         });
-        this.questions = exam.map((exam_questions_options) => {
+        this.questions = exam.map((exam_questions_options) => { // aquiiiiiiiiiiiiiiiiiiiii
           return {
             level: exam_questions_options.level,
             question_number: exam_questions_options.number,
@@ -488,23 +492,11 @@ export default {
       }
     },
     splitQuestionsByLevel(questions) {
-      let splitQuestions = {
-        low: [],
-        medium: [],
-        high: [],
+      return {
+        low: questions.filter((question) => question.level === "B"),
+        medium: questions.filter((question) => question.level === "M"),
+        high: questions.filter((question) => question.level === "A"),
       };
-      for (let i = 0; i < questions.length; i++) {
-        if (questions[i].level === "B") {
-          splitQuestions.medium.push(questions[i]);
-        }
-        if (questions[i].level === "M") {
-          splitQuestions.low.push(questions[i]);
-        }
-        if (questions[i].level === "A") {
-          splitQuestions.high.push(questions[i]);
-        }
-      }
-      return splitQuestions;
     },
     getRandomExam({ low, medium, high, splitQuestions }) {
       return {

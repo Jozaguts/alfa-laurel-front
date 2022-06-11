@@ -12,7 +12,7 @@
         <header-form />
         <!--titulo de examen | materia | profesor -->
         <general-inputs :subjects="subjects" :users="users" />
-      <!--  nivel alto | nivel medio | nivel bajo      -->
+        <!--  nivel alto | nivel medio | nivel bajo      -->
         <config-inputs />
         <questions-component
           ref="questionComponent"
