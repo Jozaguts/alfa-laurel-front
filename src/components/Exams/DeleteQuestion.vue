@@ -6,15 +6,15 @@
     <v-dialog :value="dialog" max-width="454px">
       <v-card>
         <v-card-title class="title grey--text text--darken-1"
-        >Se eliminara la pregunta ¿Estas de acuerdo?</v-card-title
+          >Se eliminara la pregunta ¿Estas de acuerdo?</v-card-title
         >
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" outlined text @click="dialog = false"
-          >Cancelar</v-btn
+            >Cancelar</v-btn
           >
           <v-btn color="primary" @click="removeQuestion" :loading="loading"
-          >Aceptar</v-btn
+            >Aceptar</v-btn
           >
         </v-card-actions>
       </v-card>
@@ -30,17 +30,17 @@ export default {
   data() {
     return {
       loading: false,
+      dialog: false,
     };
   },
   methods: {
     async removeQuestion() {
-      console.log(this.questionID);
       this.loading = true;
       try {
         if (!this.$store.state.examen.dialog) {
           let { data } = await deleteExamQuestion({
             examenID: this.$store.state.examen.editedItem.examen_id,
-            questionID: this.questionID,
+            questionID: this.$parent.question.id,
           });
           if (data.success) {
             this.$store.commit("settings/SHOW_SNACKBAR", {
@@ -57,7 +57,10 @@ export default {
         console.log(e.message);
       } finally {
         this.$nextTick(() => {
-          this.$store.commit("examen/REMOVE_QUESTION", this.questionID);
+          this.$store.commit(
+            "examen/REMOVE_QUESTION",
+            this.$parent.question.id
+          );
           this.loading = false;
           this.dialog = false;
         });
