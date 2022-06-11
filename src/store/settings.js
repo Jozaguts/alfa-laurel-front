@@ -10,18 +10,23 @@ export default {
       color: "warning",
       bottom: true,
     },
-    dialog:false,
+    dialog: false,
     links: [
       { text: "Materias", icon: "mdi-bookshelf", to: "/materias" },
       { text: "Exámenes", icon: "mdi-file-multiple-outline", to: "/examenes" },
-      { text: "Exámenes aplicados", icon: "mdi-text-box-multiple-outline", to: "/examenes-aplicados" },
+      {
+        text: "Exámenes aplicados",
+        icon: "mdi-text-box-multiple-outline",
+        to: "/examenes-aplicados",
+      },
+      { text: "Exámen", icon: "mdi-file-edit", to: "/examen" },
     ],
   },
   mutations: {
     TOGGLE_DIALOG(state, value) {
       state.dialog = value;
     },
-    CLOSE_SNACKBAR(state){
+    CLOSE_SNACKBAR(state) {
       state.snackbar.value = false;
     },
     TOGGLE_DRAWER(state, status) {
@@ -30,7 +35,10 @@ export default {
     TOGGLE_LOADING(state, loading) {
       state.loading = loading;
     },
-    SHOW_SNACKBAR(state, { text, value = true, color = "error", bottom = true }) {
+    SHOW_SNACKBAR(
+      state,
+      { text, value = true, color = "error", bottom = true }
+    ) {
       state.snackbar = {
         value,
         text,

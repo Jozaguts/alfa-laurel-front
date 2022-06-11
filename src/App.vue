@@ -47,11 +47,14 @@
 
     <v-app-bar v-if="authenticated" color="primary" clipped-left app>
       <router-link to="/admin">
-      <v-toolbar-title to="/" class="order-lg-1 order-md-1 order-sm-2 order-2">
-        <h5 class="white--text text-body-1 ml-xs-8">
+        <v-toolbar-title
+          to="/"
+          class="order-lg-1 order-md-1 order-sm-2 order-2"
+        >
+          <h5 class="white--text text-body-1 ml-xs-8">
             <span>Instituto</span> Alfa Laurel
-        </h5>
-      </v-toolbar-title>
+          </h5>
+        </v-toolbar-title>
       </router-link>
       <div class="order-lg-2 order-md-2 order-sm-1 order-1">
         <v-app-bar-nav-icon
@@ -106,23 +109,22 @@
         <!-- If using vue-router -->
         <router-view></router-view>
         <v-snackbar
-            multi-line
-            :timeout="5000"
-            content-class="text-center"
-            :value="$store.state.settings.snackbar.value"
-            :color="$store.state.settings.snackbar.color"
-            @input="$store.commit('settings/CLOSE_SNACKBAR')"
+          multi-line
+          :timeout="5000"
+          content-class="text-center"
+          :value="$store.state.settings.snackbar.value"
+          :color="$store.state.settings.snackbar.color"
+          @input="$store.commit('settings/CLOSE_SNACKBAR')"
         >
-        <span class="text-subtitle-1">
-          {{ $store.state.settings.snackbar.text }}
-        </span>
+          <span class="text-subtitle-1">
+            {{ $store.state.settings.snackbar.text }}
+          </span>
           <template v-slot:action="{ attrs }">
             <v-btn
-                color="white"
-                outlined
-
-                v-bind="attrs"
-                @click="$store.commit('settings/CLOSE_SNACKBAR')"
+              color="white"
+              outlined
+              v-bind="attrs"
+              @click="$store.commit('settings/CLOSE_SNACKBAR')"
             >
               Cerrar
             </v-btn>
@@ -131,9 +133,9 @@
       </v-container>
     </v-main>
 
-<!--    <v-footer app>-->
-<!--      &lt;!&ndash; &ndash;&gt;-->
-<!--    </v-footer>-->
+    <!--    <v-footer app>-->
+    <!--      &lt;!&ndash; &ndash;&gt;-->
+    <!--    </v-footer>-->
   </v-app>
   <!-- App.vue -->
 </template>
@@ -149,7 +151,7 @@ export default {
       return this.$store.getters["auth/userAvatar"];
     },
     authenticated() {
-      return (this.$store.state.auth.logged && this.$route.name !== "Exam");
+      return this.$store.state.auth.logged && this.$route.name !== "Exam";
     },
     user() {
       return this.$store.state.auth.user;
