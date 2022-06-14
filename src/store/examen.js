@@ -80,11 +80,11 @@ export default {
     OPEN_UPDATE_DIALOG(state) {
       state.dialogUpdate = true;
     },
-    ADD_QUESTION(state) {
+    ADD_QUESTION(state, id) {
       let lastOne =
         state.editedItem.questions[state.editedItem.questions.length - 1];
       state.editedItem.questions.push({
-        id: null,
+        id: id,
         question: null,
         level: null,
         number: lastOne.number + 1,

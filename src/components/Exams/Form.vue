@@ -78,7 +78,7 @@ export default {
     },
     addRow() {
       this.id += 1;
-      this.$store.commit("examen/ADD_QUESTION");
+      this.$store.commit("examen/ADD_QUESTION", this.id);
     },
     removeRow() {
       this.id--;

@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { deleteExamQuestion } from "@/services/Examenes";
+// import { deleteExamQuestion } from "@/services/Examenes";
 
 export default {
   name: "DeleteQuestion",
@@ -37,22 +37,23 @@ export default {
     async removeQuestion() {
       this.loading = true;
       try {
-        if (!this.$store.state.examen.dialog) {
-          let { data } = await deleteExamQuestion({
-            examenID: this.$store.state.examen.editedItem.examen_id,
-            questionID: this.$parent.question.id,
-          });
-          if (data.success) {
-            this.$store.commit("settings/SHOW_SNACKBAR", {
-              text: "Pregunta eliminada correctamente",
-              color: "success",
-            });
-          } else if (!data.success) {
-            this.$store.commit("settings/SHOW_SNACKBAR", {
-              text: "No fue posible eliminar la pregunta",
-            });
-          }
-        }
+        console.log(this.$parent.question.id);
+        // if (!this.$store.state.examen.dialog) {
+        //   let { data } = await deleteExamQuestion({
+        //     examenID: this.$store.state.examen.editedItem.examen_id,
+        //     questionID: this.$parent.question.id,
+        //   });
+        //   if (data.success) {
+        //     this.$store.commit("settings/SHOW_SNACKBAR", {
+        //       text: "Pregunta eliminada correctamente",
+        //       color: "success",
+        //     });
+        //   } else if (!data.success) {
+        //     this.$store.commit("settings/SHOW_SNACKBAR", {
+        //       text: "No fue posible eliminar la pregunta",
+        //     });
+        //   }
+        // }
       } catch (e) {
         console.log(e.message);
       } finally {
