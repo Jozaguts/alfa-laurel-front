@@ -39,8 +39,8 @@ export default {
     return {
       appName: "Instituto Alfa Laurel",
       credentials: {
-        email: "admin@example.com",
-        password: "password",
+        email: "",
+        password: "",
         device_name: "front_alfa_laurel",
       },
     };
