@@ -3,7 +3,7 @@
     <v-navigation-drawer clipped v-model="drawerState" v-if="authenticated" app>
       <v-list nav dense>
         <v-list-item-group v-model="selectedItem" color="primary">
-          <v-list-group :value="true" no-action>
+          <v-list-group :value="true" no-action v-role="'Super admin'">
             <template v-slot:activator>
               <v-list-item-icon>
                 <v-icon v-text="'mdi-account-group-outline'"></v-icon>
@@ -12,12 +12,6 @@
                 <v-list-item-title>Roles y permisos</v-list-item-title>
               </v-list-item-content>
             </template>
-            <v-list-item :key="3" to="/admin/users" link>
-              <v-list-item-title>
-                <v-icon v-text="'mdi-account-multiple-outline'"></v-icon>
-                Usuarios
-              </v-list-item-title>
-            </v-list-item>
             <v-list-item :key="4" to="/admin/roles" link>
               <v-list-item-title>
                 <v-icon
@@ -33,6 +27,14 @@
               </v-list-item-title>
             </v-list-item>
           </v-list-group>
+          <v-list-item to="/admin/users" link>
+            <v-list-item-icon>
+              <v-icon v-text="'mdi-account-multiple-outline'"></v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title> Usuarios </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
           <v-list-item v-for="(link, i) in links" :to="link.to" :key="i">
             <v-list-item-icon>
               <v-icon v-text="link.icon"></v-icon>

@@ -6,8 +6,8 @@ export default {
   methods: {
     middleware() {
       // If the user is not an admin
-      this.$gates.getRoles();
-      if (!this.$gates.hasAnyRole("admin|control_escolar")) {
+      console.log(this.$gates.getRoles());
+      if (!this.$gates.hasAnyRole("admin|control_escolar|Super Admin")) {
         return this.$router.push("/");
       }
     },
