@@ -387,7 +387,7 @@ export default {
         if (this.timer) {
           this.timer = this.timer - 1;
         }
-      }, 15000); // todo cambiar a 60000
+      }, 60000);
     },
     onSubmit() {
       this.loading = true;
