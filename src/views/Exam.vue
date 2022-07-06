@@ -265,7 +265,7 @@ export default {
   },
   data() {
     return {
-      timer: 60,
+      timer: 20,
       dialog: false,
       loading: false,
       questions: [],
@@ -278,7 +278,7 @@ export default {
         exam_id: null,
         user_id: null,
         minutes_assigns: null,
-        minutes: 45,
+        minutes: 20,
         student_code: null,
         student_name: null,
         answers_details: [],
