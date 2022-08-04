@@ -5,7 +5,7 @@ axios.defaults.headers.common["Content-Type"] =
   "application/x-www-form-urlencoded ";
 axios.defaults.baseURL =
   process.env.NODE_ENV === "production"
-    ? "https://office.alfalaurel.com"
+    ? "https://office.alfalaurelapp.com"
     : "http://localhost:8000";
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use(
